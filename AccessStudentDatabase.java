@@ -1,4 +1,5 @@
 //11.b.Create a java program to print all student records from the Student table of the ICE_PUST database.
+//javac -cp ".;C:\JAVA\UCanAccess-5.0.1.bin\ucanaccess-5.0.1.jar;C:\JAVA\UCanAccess-5.0.1.bin\lib\*" AccessStudentDatabase.java
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

@@ -1,8 +1,16 @@
-//lab-7: Write a Java program to illustrate yield(), stop() and sleep() method using thread. 
+
+ // Lab-7: Illustrate yield(), stop() and sleep() methods using thread.
+
 class MyThread extends Thread {
 
+    private volatile boolean running = true;
+
+    public void stopThread() {
+        running = false;
+    }
+
     public void run() {
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 10 && running; i++) {
             System.out.println(getName() + ": " + i);
 
             Thread.yield();
@@ -10,7 +18,7 @@ class MyThread extends Thread {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
-                System.out.println(getName() + " interrupted");
+                System.out.println(getName() + " interrupted.");
                 return;
             }
         }
@@ -19,14 +27,21 @@ class MyThread extends Thread {
 
 public class ThreadMethods {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+
         MyThread t1 = new MyThread();
         MyThread t2 = new MyThread();
 
-        t1.setName("Thread 1");
-        t2.setName("Thread 2");
+        t1.setName("Thread-A");
+        t2.setName("Thread-B");
 
         t1.start();
         t2.start();
+
+        Thread.sleep(1500);
+
+        t1.stopThread();
+
+        System.out.println("Thread-A stopped.");
     }
 }

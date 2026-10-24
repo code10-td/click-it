@@ -5,31 +5,28 @@
 import com.healthmarketscience.jackcess.*;
 import java.io.File;
 
-public class CreateAccessDB {
+public class AccessDatabase {
     public static void main(String[] args) {
+        File file = new File("ICE_PUST.accdb");
 
-        File file = new File("C:\\JAVA\\ICE_PUST.accdb");
-
-        if (file.exists()) {
-            System.out.println("Database already exists!");
-            return;
-        }
-
-        try (Database db = DatabaseBuilder.create(
-                Database.FileFormat.V2010, file)) {
+        try {
+            Database db = DatabaseBuilder.create(
+                Database.FileFormat.V2010, file
+            );
 
             new TableBuilder("Student")
-                    .addColumn(new ColumnBuilder("Name", DataType.TEXT))
-                    .addColumn(new ColumnBuilder("Email", DataType.TEXT))
-                    .addColumn(new ColumnBuilder("Phone", DataType.TEXT))
-                    .toTable(db);
+                .addColumn(new ColumnBuilder("Name", DataType.TEXT))
+                .addColumn(new ColumnBuilder("Email", DataType.TEXT))
+                .addColumn(new ColumnBuilder("Phone", DataType.TEXT))
+                .toTable(db);
+
+            db.close();
 
             System.out.println("Database created successfully!");
             System.out.println("Student table created successfully!");
-            System.out.println("Location: " + file.getAbsolutePath());
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }

@@ -1,16 +1,17 @@
 //11.b.Create a java program to print all student records from the Student table of the ICE_PUST database.
 //javac -cp ".;C:\JAVA\UCanAccess-5.0.1.bin\ucanaccess-5.0.1.jar;C:\JAVA\UCanAccess-5.0.1.bin\lib\*" AccessStudentDatabase.java
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class AccessStudentDatabase {
+public class Exp11_Database {
 
     public static void main(String[] args) {
 
-        String url = "jdbc:ucanaccess://C:/JAVA/ICE_PUST.accdb";
+        String url = "jdbc:ucanaccess://C:\\Users\\nitud\\Downloads\\hi\\ICE_PUST.accdb";
 
         String[][] students = {
             {"Tandra Datta", "tandra10@gmail.com", "01712345678"},
@@ -34,6 +35,7 @@ public class AccessStudentDatabase {
                      PreparedStatement insert = con.prepareStatement(insertSql)) {
 
                     for (String[] s : students) {
+
                         check.setString(1, s[1]);
 
                         try (ResultSet rs = check.executeQuery()) {
@@ -43,23 +45,23 @@ public class AccessStudentDatabase {
                                 insert.setString(1, s[0]);
                                 insert.setString(2, s[1]);
                                 insert.setString(3, s[2]);
-                                insert.executeUpdate();
 
+                                insert.executeUpdate();
                                 System.out.println("Inserted: " + s[0]);
+                            } else {
+                                System.out.println("Already exists: " + s[0]);
                             }
                         }
                     }
                 }
 
-                // Display each email only once
                 String displaySql =
-                    "SELECT MIN(Name) AS Name, Email, MIN(Phone) AS Phone " +
-                    "FROM Student GROUP BY Email";
+                    "SELECT [Name], Email, Phone FROM Student";
 
                 try (Statement st = con.createStatement();
                      ResultSet rs = st.executeQuery(displaySql)) {
 
-                    System.out.println("\n--- Student Records ---");
+                    System.out.println("\n--- All Student Records ---");
 
                     while (rs.next()) {
                         System.out.println(
@@ -73,6 +75,7 @@ public class AccessStudentDatabase {
 
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

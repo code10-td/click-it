@@ -8,10 +8,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class Exp11_Database {
-
     public static void main(String[] args) {
 
-        String url = "jdbc:ucanaccess://C:\\Users\\nitud\\Downloads\\hi\\ICE_PUST.accdb";
+        String url = "jdbc:ucanaccess://C:/Users/nitud/Downloads/hu/ICE_PUST.accdb";
 
         String[][] students = {
             {"Tandra Datta", "tandra10@gmail.com", "01712345678"},
@@ -35,7 +34,6 @@ public class Exp11_Database {
                      PreparedStatement insert = con.prepareStatement(insertSql)) {
 
                     for (String[] s : students) {
-
                         check.setString(1, s[1]);
 
                         try (ResultSet rs = check.executeQuery()) {
@@ -45,8 +43,8 @@ public class Exp11_Database {
                                 insert.setString(1, s[0]);
                                 insert.setString(2, s[1]);
                                 insert.setString(3, s[2]);
-
                                 insert.executeUpdate();
+
                                 System.out.println("Inserted: " + s[0]);
                             } else {
                                 System.out.println("Already exists: " + s[0]);
@@ -62,6 +60,7 @@ public class Exp11_Database {
                      ResultSet rs = st.executeQuery(displaySql)) {
 
                     System.out.println("\n--- All Student Records ---");
+                    System.out.println("-----------------------------------------------");
 
                     while (rs.next()) {
                         System.out.println(

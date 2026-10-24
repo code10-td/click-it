@@ -1,5 +1,7 @@
 //javac -cp ".;mysql-connector-j-26.7.0.jar" Exp12_MySQL_CRUD.java
 //java -cp ".;mysql-connector-j-26.7.0.jar" Exp12_MySQL_CRUD
+//ALTER TABLE Student
+MODIFY id INT NOT NULL AUTO_INCREMENT;//
 import java.sql.*;
 import java.util.Scanner;
 
